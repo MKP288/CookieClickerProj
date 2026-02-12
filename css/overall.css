@@ -22,21 +22,23 @@ html, body {
     gap: 10px;
 }
 
+
+/*Left and Right Rectangles*/
 #col1, #col3 {
     border: 2px solid black;
     padding: 20px;
     box-sizing: border-box;
-}
-
-#col1, #col3 {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    flex-direction: column;
     flex: 1;
     min-width: 250px;
 }
 
+
+/*Middle Rectangle*/
 #col2 {
     display: flex;
     align-items: stretch;
@@ -59,4 +61,10 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+/*Images*/
+#cookie-click {
+    width: 300px;
+    height: auto;
 }
