@@ -1,0 +1,62 @@
+/*
+Author Names: Marc Keanne Principe & Emre 
+Date Created: 12/02/26
+Deadline: TBH
+Description: A global style shared across all css.
+*/
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    min-height: 100%;
+}
+
+#container {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    min-height: 100vh;
+    gap: 10px;
+}
+
+#col1, #col3 {
+    border: 2px solid black;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#col1, #col3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    min-width: 250px;
+}
+
+#col2 {
+    display: flex;
+    align-items: stretch;
+    flex: 2;
+    min-width: 350px;
+}
+
+.rows {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.upgrade {
+    border: 2px solid black;
+    padding: 20px;
+    background-color: #f4f4f4;
+    min-height: 13vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
