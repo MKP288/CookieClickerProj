@@ -8,7 +8,7 @@ cookie.addEventListener('click', (e) => {
 
     for (let i = 0; i < 1; i++) {
         let img = document.createElement('img');
-        img.src = 'images/slot.png';
+        img.src = 'images/coin.png';
         img.style.cssText = `
             position: fixed;
             width: 30px;
