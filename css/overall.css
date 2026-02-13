@@ -50,6 +50,10 @@ html, body {
     background-color: #3c2210;
 }
 
+img:active {
+    transform: translateY(-5px);
+}
+
 
 .rows {
     display: flex;

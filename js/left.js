@@ -1,0 +1,26 @@
+const cookie = document.getElementById('cookie-click');
+
+cookie.addEventListener('click', (e) => {
+    for (let i = 0; i < 1; i++) {
+        let img = document.createElement('img');
+        img.src = 'images/slot.png';
+        img.style.cssText = `
+            position: fixed;
+            width: 30px;
+            left: ${e.clientX + (Math.random() - 0.5) * 60}px;
+            top: ${e.clientY}px;
+            pointer-events: none;
+            transition: all 1s ease-out;
+            opacity: 1;
+            z-index: 999;
+        `;
+        document.body.appendChild(img);
+
+        requestAnimationFrame(() => {
+            img.style.top = (e.clientY - 80 - Math.random() * 60) + 'px';
+            img.style.opacity = '0';
+        });
+
+        setTimeout(() => img.remove(), 1000);
+    }
+});
