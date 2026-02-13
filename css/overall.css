@@ -50,10 +50,6 @@ html, body {
     background-color: #3c2210;
 }
 
-img:active {
-    transform: translateY(-5px);
-}
-
 
 .rows {
     display: flex;
@@ -80,4 +76,9 @@ img:active {
 #cookie-click {
     width: 300px;
     height: auto;
+    transition: transform 0.15s ease;
+}
+
+#cookie-click:active {
+    transform: scale(0.905);
 }
