@@ -20,6 +20,7 @@ html, body {
     flex-wrap: wrap;
     min-height: 100vh;
     gap: 10px;
+    background-color: #3c2210;
 }
 
 
@@ -35,6 +36,7 @@ html, body {
     flex-direction: column;
     flex: 1;
     min-width: 250px;
+    background-color: antiquewhite;
 }
 
 
@@ -45,7 +47,9 @@ html, body {
     flex: 2;
     min-width: 350px;
     max-width: 520px;
+    background-color: #3c2210;
 }
+
 
 .rows {
     display: flex;
@@ -54,10 +58,14 @@ html, body {
     width: 100%;
 }
 
+.rows:hover {
+    transform: translateY(-5px);
+}
+
 .upgrade {
     border: 2px solid black;
     padding: 20px;
-    background-color: #f4f4f4;
+    background-color: rgb(255, 221, 177);
     min-height: 13vh;
     display: flex;
     justify-content: space-between;
