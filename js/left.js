@@ -1,6 +1,11 @@
 const cookie = document.getElementById('cookie-click');
+let count = 0;
+const scoreDisplay = document.getElementById('score');
 
 cookie.addEventListener('click', (e) => {
+    count++;
+    scoreDisplay.textContent = count;
+
     for (let i = 0; i < 1; i++) {
         let img = document.createElement('img');
         img.src = 'images/slot.png';
@@ -22,7 +27,8 @@ cookie.addEventListener('click', (e) => {
         });
 
         setTimeout(() => img.remove(), 1000);
-            let plus = document.createElement('div');
+
+        let plus = document.createElement('div');
         plus.textContent = '+1';
         plus.style.cssText = `
             position: fixed;
