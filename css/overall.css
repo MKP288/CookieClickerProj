@@ -44,6 +44,7 @@ html, body {
     align-items: stretch;
     flex: 2;
     min-width: 350px;
+    max-width: 520px;
 }
 
 .rows {
