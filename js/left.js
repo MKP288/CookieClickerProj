@@ -22,5 +22,28 @@ cookie.addEventListener('click', (e) => {
         });
 
         setTimeout(() => img.remove(), 1000);
+            let plus = document.createElement('div');
+        plus.textContent = '+1';
+        plus.style.cssText = `
+            position: fixed;
+            left: ${e.clientX}px;
+            top: ${e.clientY - 10}px;
+            font-size: 18px;
+            font-weight: bold;
+            color: red;
+            pointer-events: none;
+            user-select: none;
+            transition: all 1s ease-out;
+            opacity: 1;
+            z-index: 1000;
+        `;
+        document.body.appendChild(plus);
+
+        requestAnimationFrame(() => {
+            plus.style.top = (e.clientY - 80) + 'px';
+            plus.style.opacity = '0';
+        });
+
+        setTimeout(() => plus.remove(), 1000);
     }
 });
