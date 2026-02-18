@@ -56,10 +56,8 @@ html, body {
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
-}
-
-.rows:hover {
-    transform: translateY(-5px);
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .upgrade {

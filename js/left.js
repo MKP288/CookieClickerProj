@@ -2,9 +2,42 @@ const cookie = document.getElementById('cookie-click');
 let count = 0;
 const scoreDisplay = document.getElementById('score');
 
+function saveScore() {
+    let myData = {
+        score: count
+    };
+    localStorage.setItem('cookieScore', JSON.stringify(myData));
+}
+
+function loadScore() {
+    let saved = localStorage.getItem('cookieScore');
+
+    if (saved != null) {
+        let data = JSON.parse(saved);
+        count = data.score;
+        scoreDisplay.textContent = count;
+    }
+}
+
+function downloadScore() {
+    let myData = {
+        score: count
+    };
+
+    let jsonString = JSON.stringify(myData);
+
+    let blob = new Blob([jsonString], { type: 'application/json' });
+    let url = URL.createObjectURL(blob);
+    let a = document.createElement('a');
+    a.href = url;
+    a.download = 'cookie_score.json';
+    a.click();
+}
+
 cookie.addEventListener('click', (e) => {
     count++;
     scoreDisplay.textContent = count;
+    saveScore();
 
     for (let i = 0; i < 1; i++) {
         let img = document.createElement('img');
@@ -53,3 +86,5 @@ cookie.addEventListener('click', (e) => {
         setTimeout(() => plus.remove(), 1000);
     }
 });
+
+loadScore();

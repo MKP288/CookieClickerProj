@@ -1,0 +1,39 @@
+çç<!doctype html>
+<!--
+TODO: This is a comment. Change this header comment to describe the 
+web page and include your name as author.
+-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/overall.css">
+</head>
+
+<body>
+    <div id="container">
+        <div id="col1">
+            <h1 id="score">0</h1>
+            Your Clicker Area and Scoreboard
+            <img src="images/slot.png" id="cookie-click" alt="clicked">
+        </div>
+        <div id="col2">
+            <div class="rows">
+                <div class="upgrade">Rewards/Display of upgrades or milestone</div>
+                <div class="upgrade">Rewards/Display of upgrades or milestone</div>
+                <div class="upgrade">Rewards/Display of upgrades or milestone</div>
+                <div class="upgrade">Rewards/Display of upgrades or milestone</div>
+                <div class="upgrade">Rewards/Display of upgrades or milestone</div>
+            </div>
+        </div>
+        <div id="col3">
+            Upgrade Area/Store
+        </div>
+    </div>
+<script src="js/left.js"></script>
+</body>
+
+</html>
+
