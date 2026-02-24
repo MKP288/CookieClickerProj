@@ -1,7 +1,7 @@
 // Casino Clicker - left.js
 // Authors: Marc Keanne Principe & Emre
 
-let score = 100000;
+let score = 0;
 let clickPower = 1; // how many chips you get per click
 
 // Upgrade costs
