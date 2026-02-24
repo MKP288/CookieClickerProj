@@ -87,4 +87,9 @@ cookie.addEventListener('click', (e) => {
     }
 });
 
+// Saves the score each 10 seconds.
+setInterval(() => {
+    saveScore();
+}, 10000);
+
 loadScore();
