@@ -1,95 +1,237 @@
-const cookie = document.getElementById('cookie-click');
-let count = 0;
-const scoreDisplay = document.getElementById('score');
+// Casino Clicker - left.js
+// Authors: Marc Keanne Principe & Emre
 
-function saveScore() {
-    let myData = {
-        score: count
-    };
-    localStorage.setItem('cookieScore', JSON.stringify(myData));
+let score = 100000;
+let clickPower = 1; // how many chips you get per click
+
+// Upgrade costs
+let leverCost = 50;
+let fasterClickCost = 100;
+let cardCost = 500;
+let rouletteWheelCost = 2000;
+let casinoChipCost = 10000;
+
+// How many of each upgrade the player owns
+let leverCount = 0;
+let fasterClickCount = 0;
+let cardCount = 0;
+let rouletteWheelCount = 0;
+let casinoChipCount = 0;
+
+// Milestone thresholds and their messages
+let milestones = [1000, 5000, 10000, 1000000, 20000000];
+let milestoneNames = ["First Jackpot", "Lucky Roll", "High Roller", "Millionaire", "Casino Royale"];
+let milestoneReached = [false, false, false, false, false];
+
+// Get elements from the HTML
+let slotMachine = document.getElementById("cookie-click");
+let scoreDisplay = document.getElementById("score");
+let upgradeBoxes = document.querySelectorAll(".upgrade");
+let storeItems = document.querySelectorAll(".item");
+
+// Create a shared error message element and add it to the page
+let errorMessage = document.createElement("p");
+errorMessage.id = "error-message";
+errorMessage.style.color = "red";
+errorMessage.style.fontWeight = "bold";
+errorMessage.style.minHeight = "1.5em"; // reserve space so layout doesn't jump
+document.getElementById("col3").prepend(errorMessage); // place it at the top of the store
+
+let errorTimeout = null;
+
+// Show an error message for 2 seconds, then clear it
+function showError(message) {
+    errorMessage.textContent = message;
+    clearTimeout(errorTimeout);
+    errorTimeout = setTimeout(function() {
+        errorMessage.textContent = "";
+    }, 2000);
 }
 
-function loadScore() {
-    let saved = localStorage.getItem('cookieScore');
-
-    if (saved != null) {
-        let data = JSON.parse(saved);
-        count = data.score;
-        scoreDisplay.textContent = count;
-    }
+// Update the score display
+function updateScore() {
+    scoreDisplay.textContent = Math.floor(score);
 }
 
-function downloadScore() {
-    let myData = {
-        score: count
-    };
+// --- STORE ITEM CLICK HANDLERS ---
 
-    let jsonString = JSON.stringify(myData);
-
-    let blob = new Blob([jsonString], { type: 'application/json' });
-    let url = URL.createObjectURL(blob);
-    let a = document.createElement('a');
-    a.href = url;
-    a.download = 'cookie_score.json';
-    a.click();
-}
-
-cookie.addEventListener('click', (e) => {
-    count++;
-    scoreDisplay.textContent = count;
-    saveScore();
-
-    for (let i = 0; i < 1; i++) {
-        let img = document.createElement('img');
-        img.src = 'images/coin.png';
-        img.style.cssText = `
-            position: fixed;
-            width: 30px;
-            left: ${e.clientX + (Math.random() - 0.5) * 60}px;
-            top: ${e.clientY}px;
-            pointer-events: none;
-            transition: all 1s ease-out;
-            opacity: 1;
-            z-index: 999;
-        `;
-        document.body.appendChild(img);
-
-        requestAnimationFrame(() => {
-            img.style.top = (e.clientY - 80 - Math.random() * 60) + 'px';
-            img.style.opacity = '0';
-        });
-
-        setTimeout(() => img.remove(), 1000);
-
-        let plus = document.createElement('div');
-        plus.textContent = '+1';
-        plus.style.cssText = `
-            position: fixed;
-            left: ${e.clientX}px;
-            top: ${e.clientY - 10}px;
-            font-size: 18px;
-            font-weight: bold;
-            color: red;
-            pointer-events: none;
-            user-select: none;
-            transition: all 1s ease-out;
-            opacity: 1;
-            z-index: 1000;
-        `;
-        document.body.appendChild(plus);
-
-        requestAnimationFrame(() => {
-            plus.style.top = (e.clientY - 80) + 'px';
-            plus.style.opacity = '0';
-        });
-
-        setTimeout(() => plus.remove(), 1000);
+// Lever - auto clicks 0.5 chips per second, costs more each time you buy
+storeItems[0].addEventListener("click", function() {
+    if (score >= leverCost) {
+        score = score - leverCost;
+        leverCount = leverCount + 1;
+        leverCost = Math.floor(leverCost * 1.5); // price goes up each purchase
+        storeItems[0].textContent = "Lever (" + leverCount + " owned) - Cost: " + leverCost;
+        updateScore();
+    } else {
+        showError("Not enough chips! You need " + leverCost + " chips.");
     }
 });
 
-// Saves the score each 10 seconds.
-setInterval(() => {
-    saveScore();
-}, 10000);
+// Faster Click - increases your click power by 1
+storeItems[1].addEventListener("click", function() {
+    if (score >= fasterClickCost) {
+        score = score - fasterClickCost;
+        fasterClickCount = fasterClickCount + 1;
+        clickPower = clickPower + 1;
+        fasterClickCost = Math.floor(fasterClickCost * 1.5);
+        storeItems[1].textContent = "Faster Click (" + fasterClickCount + " owned) - Cost: " + fasterClickCost;
+        updateScore();
+    } else {
+        showError("Not enough chips! You need " + fasterClickCost + " chips.");
+    }
+});
 
-loadScore();
+// Card - auto clicks 3 chips per second
+storeItems[2].addEventListener("click", function() {
+    if (score >= cardCost) {
+        score = score - cardCost;
+        cardCount = cardCount + 1;
+        cardCost = Math.floor(cardCost * 1.5);
+        storeItems[2].textContent = "Card (" + cardCount + " owned) - Cost: " + cardCost;
+        updateScore();
+    } else {
+        showError("Not enough chips! You need " + cardCost + " chips.");
+    }
+});
+
+// Roulette Wheel - auto clicks 10 chips per second
+storeItems[3].addEventListener("click", function() {
+    if (score >= rouletteWheelCost) {
+        score = score - rouletteWheelCost;
+        rouletteWheelCount = rouletteWheelCount + 1;
+        rouletteWheelCost = Math.floor(rouletteWheelCost * 1.5);
+        storeItems[3].textContent = "Roulette Wheel (" + rouletteWheelCount + " owned) - Cost: " + rouletteWheelCost;
+        updateScore();
+    } else {
+        showError("Not enough chips! You need " + rouletteWheelCost + " chips.");
+    }
+});
+
+// Casino Chip - auto clicks 50 chips per second
+storeItems[4].addEventListener("click", function() {
+    if (score >= casinoChipCost) {
+        score = score - casinoChipCost;
+        casinoChipCount = casinoChipCount + 1;
+        casinoChipCost = Math.floor(casinoChipCost * 1.5);
+        storeItems[4].textContent = "Casino Chip (" + casinoChipCount + " owned) - Cost: " + casinoChipCost;
+        updateScore();
+    } else {
+        showError("Not enough chips! You need " + casinoChipCost + " chips.");
+    }
+});
+
+// --- MANUAL CLICK ---
+slotMachine.style.transition = "transform 0.1s ease";
+
+slotMachine.addEventListener("click", function(event) {
+    score = score + clickPower;
+    updateScore();
+    checkMilestones();
+
+    // Click animation - shrink then bounce back
+    slotMachine.style.transform = "scale(0.85)";
+    setTimeout(function() {
+        slotMachine.style.transform = "scale(1.1)";
+        setTimeout(function() {
+            slotMachine.style.transform = "scale(1)";
+        }, 100);
+    }, 100);
+
+    // Floating coin + +N text at click position
+    let popup = document.createElement("div");
+    popup.style.position = "fixed";
+    popup.style.left = event.clientX + "px";
+    popup.style.top = event.clientY + "px";
+    popup.style.display = "flex";
+    popup.style.alignItems = "center";
+    popup.style.gap = "5px";
+    popup.style.pointerEvents = "none";
+    popup.style.transition = "transform 0.8s ease, opacity 0.8s ease";
+    popup.style.opacity = "1";
+    popup.style.zIndex = "999";
+
+    let coinImg = document.createElement("img");
+    coinImg.src = "images/coin.png";
+    coinImg.style.width = "30px";
+    coinImg.style.height = "30px";
+
+    let label = document.createElement("span");
+    label.textContent = "+" + clickPower;
+    label.style.fontSize = "1.6em";
+    label.style.fontWeight = "bold";
+    label.style.color = "gold";
+    label.style.textShadow = "1px 1px 3px black";
+
+    popup.appendChild(coinImg);
+    popup.appendChild(label);
+    document.body.appendChild(popup);
+
+    // Trigger the float-up animation
+    requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+            popup.style.transform = "translateY(-80px)";
+            popup.style.opacity = "0";
+        });
+    });
+
+    // Remove from DOM after animation
+    setTimeout(function() {
+        popup.remove();
+    }, 900);
+});
+
+// --- AUTO CLICKER ---
+// Runs every second and adds chips based on what upgrades you own
+setInterval(function() {
+    let chipsThisSecond = 0;
+    chipsThisSecond = chipsThisSecond + (leverCount * 0.5);
+    chipsThisSecond = chipsThisSecond + (cardCount * 3);
+    chipsThisSecond = chipsThisSecond + (rouletteWheelCount * 10);
+    chipsThisSecond = chipsThisSecond + (casinoChipCount * 50);
+
+    score = score + chipsThisSecond;
+    updateScore();
+    checkMilestones();
+}, 1000);
+
+// --- MILESTONES ---
+function checkMilestones() {
+    for (let i = 0; i < milestones.length; i++) {
+        if (score >= milestones[i] && milestoneReached[i] == false) {
+            milestoneReached[i] = true;
+            showMilestone(i);
+        }
+    }
+}
+
+function showMilestone(index) {
+    let box = upgradeBoxes[index];
+    box.textContent = "🏆 " + milestoneNames[index] + " - Reached " + milestones[index].toLocaleString() + " chips!";
+    box.style.backgroundColor = "gold";
+    box.style.fontWeight = "bold";
+    box.style.color = "darkred";
+
+    // Flash the box a few times
+    let flashCount = 0;
+    let flashInterval = setInterval(function() {
+        if (flashCount % 2 == 0) {
+            box.style.backgroundColor = "gold";
+        } else {
+            box.style.backgroundColor = "orange";
+        }
+        flashCount = flashCount + 1;
+
+        if (flashCount >= 6) {
+            clearInterval(flashInterval);
+            box.style.backgroundColor = "gold";
+        }
+    }, 500);
+}
+
+// Set initial store labels with costs
+storeItems[0].textContent = "Lever - Cost: " + leverCost + " chips";
+storeItems[1].textContent = "Faster Click - Cost: " + fasterClickCost + " chips";
+storeItems[2].textContent = "Card - Cost: " + cardCost + " chips";
+storeItems[3].textContent = "Roulette Wheel - Cost: " + rouletteWheelCost + " chips";
+storeItems[4].textContent = "Casino Chip - Cost: " + casinoChipCost + " chips";
