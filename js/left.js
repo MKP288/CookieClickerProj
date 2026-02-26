@@ -1,5 +1,9 @@
-// Casino Clicker - left.js
-// Authors: Marc Keanne Principe & Emre
+/*
+Author Names: Marc Keanne Principe & Emre 
+Date Created: 12/02/26
+Deadline: 27/02/26
+Description: A global script.js used on the browser.
+*/
 
 let score = 0;
 let clickPower = 1; // how many chips you get per click
@@ -227,6 +231,91 @@ function showMilestone(index) {
             box.style.backgroundColor = "gold";
         }
     }, 500);
+
+    // --- CONGRATULATIONS POPUP ---
+    // Inject bounce keyframe once
+    if (!document.getElementById("congrats-style")) {
+        let style = document.createElement("style");
+        style.id = "congrats-style";
+        style.textContent =
+            "@keyframes congrats-bounce {" +
+            "  0%   { transform: scale(0.4); opacity: 0; }" +
+            "  70%  { transform: scale(1.08); opacity: 1; }" +
+            "  100% { transform: scale(1);    opacity: 1; }" +
+            "}";
+        document.head.appendChild(style);
+    }
+
+    // Create full-screen overlay
+    let overlay = document.createElement("div");
+    overlay.style.cssText =
+        "position: fixed;" +
+        "top: 0; left: 0; width: 100%; height: 100%;" +
+        "display: flex; align-items: center; justify-content: center;" +
+        "background: rgba(0, 0, 0, 0.6);" +
+        "z-index: 9999;" +
+        "opacity: 1;" +
+        "transition: opacity 0.8s ease;";
+
+    // Create the card
+    let card = document.createElement("div");
+    card.style.cssText =
+        "background: linear-gradient(135deg, #7b0000, #c0000c, #7b0000);" +
+        "border: 5px solid gold;" +
+        "border-radius: 20px;" +
+        "padding: 40px 60px;" +
+        "text-align: center;" +
+        "box-shadow: 0 0 60px gold, 0 0 20px rgba(255, 215, 0, 0.6);" +
+        "animation: congrats-bounce 0.4s ease;";
+
+    // Trophy emoji
+    let emoji = document.createElement("div");
+    emoji.textContent = "🏆";
+    emoji.style.cssText = "font-size: 4em; margin-bottom: 10px;";
+
+    // "CONGRATULATIONS!" heading
+    let heading = document.createElement("div");
+    heading.textContent = "CONGRATULATIONS!";
+    heading.style.cssText =
+        "font-size: 2.5em;" +
+        "font-weight: bold;" +
+        "color: gold;" +
+        "font-family: Impact, 'Arial Narrow Bold', sans-serif;" +
+        "text-shadow: 2px 2px 6px black;" +
+        "letter-spacing: 3px;";
+
+    // Milestone name
+    let milestoneName = document.createElement("div");
+    milestoneName.textContent = milestoneNames[index];
+    milestoneName.style.cssText =
+        "font-size: 1.8em;" +
+        "color: white;" +
+        "font-weight: bold;" +
+        "margin-top: 10px;" +
+        "text-shadow: 1px 1px 4px black;";
+
+    // Sub-text with chip count
+    let sub = document.createElement("div");
+    sub.innerHTML = "You reached <strong>" + milestones[index].toLocaleString() + "</strong> chips!";
+    sub.style.cssText =
+        "font-size: 1.1em;" +
+        "color: #ffe08a;" +
+        "margin-top: 10px;";
+
+    card.appendChild(emoji);
+    card.appendChild(heading);
+    card.appendChild(milestoneName);
+    card.appendChild(sub);
+    overlay.appendChild(card);
+    document.body.appendChild(overlay);
+
+    // Fade out after 3.5 seconds, then remove from DOM
+    setTimeout(function() {
+        overlay.style.opacity = "0";
+        setTimeout(function() {
+            overlay.remove();
+        }, 800);
+    }, 3500);
 }
 
 // Set initial store labels with costs
