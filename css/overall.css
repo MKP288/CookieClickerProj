@@ -1,15 +1,16 @@
 /*
-Author Names: Marc Keanne Principe & Emre 
-Date Created: 12/02/26
-Deadline: TBH
-Description: A global style shared across all css.
-*/
+ * File:        overall.css
+ * Authors:     Marc Keanne Principe & Emre
+ * Date:        12/02/26
+ * Description: Global styles for Casino Clicker.
+ */
 
 html, body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
     min-height: 100%;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 #container {
@@ -23,8 +24,6 @@ html, body {
     background-color: purple;
 }
 
-
-/*Left and Right Rectangles*/
 #col1, #col3 {
     border: 2px solid black;
     padding: 20px;
@@ -37,21 +36,9 @@ html, body {
     flex: 1;
     min-width: 250px;
     background-color: green;
-    background-image: 
-        repeating-linear-gradient(
-            45deg,
-            rgba(0,0,0,0.05) 0px,
-            rgba(0,0,0,0.05) 1px,
-            transparent 1px,
-            transparent 6px
-        ),
-        repeating-linear-gradient(
-            -45deg,
-            rgba(0,0,0,0.05) 0px,
-            rgba(0,0,0,0.05) 1px,
-            transparent 1px,
-            transparent 6px
-        );
+    background-image:
+        repeating-linear-gradient(45deg,  rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 6px),
+        repeating-linear-gradient(-45deg, rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 6px);
 }
 
 #col1 h1 {
@@ -61,6 +48,7 @@ html, body {
     border: 10px solid gold;
     border-radius: 40px;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    margin: 8px 0;
 }
 
 #col1 p {
@@ -69,11 +57,12 @@ html, body {
     border: 10px solid gold;
     border-radius: 40px;
     width: 230px;
-    font-size: 20px;
+    font-size: 18px;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    margin: 6px 0;
+    padding: 4px 0;
 }
 
-/*Middle Rectangle*/
 #col2 {
     display: flex;
     align-items: stretch;
@@ -83,62 +72,195 @@ html, body {
     background-color: purple;
 }
 
-
 .rows {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px 0;
+}
+
+#rewards-title {
+    color: gold;
+    background-color: purple;
+    text-align: center;
+    margin: 0 0 6px 0;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .upgrade {
     border: 2px solid black;
-    padding: 20px;
+    padding: 16px 20px;
     background-color: rgb(255, 221, 177);
     min-height: 13vh;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    text-align: center;
+    font-size: 15px;
+    color: #555;
+    box-sizing: border-box;
 }
-
-/*Store*/
 
 #col3 h2 {
     color: gold;
     background-color: purple;
+    margin: 0 0 8px 0;
+    padding: 4px 12px;
+    border-radius: 8px;
+}
+
+#error-message {
+    color: gold;
+    background-color: darkred;
+    font-weight: bold;
+    min-height: 1.5em;
+    width: 100%;
+    text-align: center;
+    border-radius: 6px;
+    padding: 4px 8px;
+    box-sizing: border-box;
+    font-size: 14px;
+    margin-bottom: 6px;
+    visibility: hidden;
+}
+
+#error-message:not(:empty) {
+    visibility: visible;
 }
 
 .item {
     border: 2px solid gold;
     background-color: red;
-    border-radius: 2px;
+    border-radius: 6px;
     width: 100%;
-    height: 50px;
+    min-height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
     margin-bottom: 10px;
     box-sizing: border-box;
     color: white;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px 10px;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.item:hover  { transform: translateY(-3px); background-color: darkred; }
+.item:active { transform: scale(0.97); }
+
+#congrats-banner {
+    display: none;
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: red;
+    color: gold;
+    border: 6px solid gold;
+    border-radius: 20px;
+    padding: 16px 36px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 26px;
+    z-index: 9999;
+    text-align: center;
+    white-space: nowrap;
+    box-shadow: 0 0 30px gold;
+    pointer-events: none;
+}
+
+#congrats-banner.show {
+    display: block;
+    animation: fadeInOut 3s forwards;
+}
+
+@keyframes fadeInOut {
+    0%   { opacity: 0; top: 10px; }
+    15%  { opacity: 1; top: 30px; }
+    70%  { opacity: 1; top: 30px; }
+    100% { opacity: 0; top: 10px; }
+}
+
+#help-btn {
+    position: fixed;
+    top: 12px;
+    right: 16px;
+    z-index: 8000;
+    background-color: red;
+    color: gold;
+    border: 3px solid gold;
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+#help-btn:hover { background-color: darkred; transform: translateY(-2px); }
+
+#help-panel {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 320px;
+    max-height: 100vh;
+    overflow-y: auto;
+    background-color: #1a0030;
+    color: gold;
+    border-left: 4px solid gold;
+    padding: 20px 20px 30px 20px;
+    box-sizing: border-box;
+    z-index: 7000;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+#help-panel h2, #help-panel h3 {
+    color: gold;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    margin-top: 16px;
+    margin-bottom: 6px;
+}
+
+#help-panel ul { padding-left: 18px; margin: 0 0 10px 0; }
+#help-panel li { margin-bottom: 6px; }
+
+#help-panel p {
+    margin: 6px 0;
+    background: none;
+    border: none;
+    border-radius: 0;
+    width: auto;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    color: gold;
+    padding: 0;
+}
+
+#help-close {
+    display: block;
+    margin-bottom: 12px;
+    background-color: red;
+    color: gold;
+    border: 2px solid gold;
+    border-radius: 12px;
+    padding: 6px 14px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 14px;
     cursor: pointer;
 }
 
-.item:hover {
-    transform: translateY(-3px);
-    background-color: darkred;
-}
+#help-close:hover { background-color: darkred; }
 
-
-/*Images*/
 #cookie-click {
-    width: 300px;
+    width: 280px;
     height: auto;
-    transition: transform 0.15s ease;
-}
-
-#cookie-click:active {
-    transform: scale(0.905);
+    cursor: pointer;
+    transition: transform 0.1s ease;
+    margin-top: 12px;
 }

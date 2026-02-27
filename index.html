@@ -1,45 +1,79 @@
 <!doctype html>
 <!--
-TODO: This is a comment. Change this header comment to describe the 
-web page and include your name as author.
+  File:        index.html
+  Authors:     Marc Keanne Principe & Emre
+  Date:        12/02/26
+  Description: Casino Clicker – main HTML structure.
 -->
-<html>
-
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width">
+    <title>Casino Clicker</title>
     <link rel="stylesheet" href="css/overall.css">
-
 </head>
-
 <body>
+
+    <div id="congrats-banner">🎉 <span id="congrats-text"></span> 🎉</div>
+
+    <div id="help-panel">
+        <button id="help-close">✕ Close</button>
+        <h2>How to Play</h2>
+        <p>Click the slot machine to earn chips. Spend chips in the Upgrade Store to earn chips faster.
+           Reach score milestones to unlock trophies in the Rewards area.</p>
+        <h3>Click Upgrades</h3>
+        <ul>
+            <li><strong>Lucky Fingers</strong> — +1 chip per click (starts at 100 chips)</li>
+            <li><strong>Golden Gloves</strong> — +3 chips per click (starts at 400 chips)</li>
+            <li><strong>Diamond Hands</strong> — +10 chips per click (starts at 2,000 chips)</li>
+        </ul>
+        <h3>Auto &amp; Passive Upgrades</h3>
+        <ul>
+            <li><strong>Auto Dealer</strong> — Starts an auto-click. Each extra purchase makes it 25% faster (starts at 150 chips)</li>
+            <li><strong>VIP Lounge</strong> — Earns +5 chips every second (starts at 800 chips)</li>
+        </ul>
+        <h3>Rewards &amp; Milestones</h3>
+        <ul>
+            <li>🎰 <strong>First Jackpot</strong> — Reach 1,000 chips</li>
+            <li>🎲 <strong>Lucky Roll</strong> — Reach 5,000 chips</li>
+            <li>🃏 <strong>High Roller</strong> — Reach 10,000 chips</li>
+            <li>💰 <strong>Millionaire</strong> — Reach 1,000,000 chips</li>
+            <li>🏆 <strong>Go Big or Go Home</strong> — Reach 20,000,000 chips</li>
+        </ul>
+        <p><em>Tip: All upgrade prices increase by 1.5× each time you buy them!</em></p>
+    </div>
+
+    <button id="help-btn">? Help</button>
+
     <div id="container">
         <div id="col1">
             <h1 id="score">0</h1>
-            <p id="textp">Your Clicker Area and Scoreboard</p>
-            <img src="images/slot.png" id="cookie-click" alt="clicked">
+            <p id="textp">Casino Clicker</p>
+            <p id="click-power-display">Click Power: 1</p>
+            <p id="upgrades-display">Upgrades Owned: 0</p>
+            <img src="images/slot.png" id="cookie-click" alt="Click the slot machine to earn chips">
         </div>
         <div id="col2">
             <div class="rows">
-                <div class="upgrade">LOCKED</div>
-                <div class="upgrade">LOCKED</div>
-                <div class="upgrade">LOCKED</div>
-                <div class="upgrade">LOCKED</div>
-                <div class="upgrade">LOCKED</div>
+                <h2 id="rewards-title">🏆 Rewards</h2>
+                <div class="upgrade">LOCKED 🔒</div>
+                <div class="upgrade">LOCKED 🔒</div>
+                <div class="upgrade">LOCKED 🔒</div>
+                <div class="upgrade">LOCKED 🔒</div>
+                <div class="upgrade">LOCKED 🔒</div>
             </div>
         </div>
         <div id="col3">
             <h2>Upgrade Store</h2>
-            <div class="item">Lever</div>
-            <div class="item">Faster Click</div>
-            <div class="item">Card</div>
-            <div class="item">Roulette Wheel</div>
-            <div class="item">Casino Chip</div>
+            <p id="error-message"></p>
+            <div class="item">Lucky Fingers</div>
+            <div class="item">Golden Gloves</div>
+            <div class="item">Diamond Hands</div>
+            <div class="item">Auto Dealer</div>
+            <div class="item">VIP Lounge</div>
         </div>
     </div>
-<script src="js/left.js"></script>
+
+    <script src="js/left.js"></script>
 </body>
-
 </html>
-
